@@ -1,0 +1,19 @@
+{
+  "name": "bwami",
+  "version": "1.0.0",
+  "description": "proyecto de sistemas expertos - unah",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CuckooRoachMan/SistemasExpertosUnah.git"
+  },
+  "author": "RoachMan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CuckooRoachMan/SistemasExpertosUnah/issues"
+  },
+  "homepage": "https://github.com/CuckooRoachMan/SistemasExpertosUnah#readme"
+}
