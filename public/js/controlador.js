@@ -8,19 +8,19 @@ function registrar(){
     lastname:document.getElementById(`lastname`).value,
     email:document.getElementById(`email`).value,
     password:document.getElementById(`password`).value,
-    birthday:document.getElementById(`birthdat`).value
+    birthday:document.getElementById(`birthday`).value
   }
 
   var transaccion= db.transaction(["usuarios"],"readwrite"); //read readonly
-  var objectStoreUsuarios= transaccion.objecstore("usuarios");
+  var objectStoreUsuarios= transaccion.objectStore("usuarios");
   var solicitud= objectStoreUsuarios.add(usuario);
 
-  solicitu.onsuccess = function(evento){
+  solicitud.onsuccess = function(evento){
     console.log(`se agrego el usuario`);
     document.getElementById('contenido-tabla').innerHTML="";
     llenarTablaUsuarios();
   }
-  solicitu.onerror = function(evento){
+  solicitud.onerror = function(evento){
     console.log("Ocurrio un error al guardar el usuario");
   }
 }
@@ -66,8 +66,9 @@ solicitud.onupgradeneeded = function(evento){
 
 function llenarTablaUsuarios(){
   var transaccion = db.transaction(["usuarios"],"readonly");
-  var objectStoreUsuarios= transaccion.objecstore("usuarios");
-  var cursor.onsuccess = function(evento){
+  var objectStoreUsuarios= transaccion.objectStore("usuarios");
+  var cursor= objectStoreUsuarios.openCursor();
+  cursor.onsuccess = function(evento){
     if(evento.target.result){
       console.log(evento.target.result.value);
       var usuario= evento.target.result.value;

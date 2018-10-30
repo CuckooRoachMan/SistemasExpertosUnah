@@ -1,0 +1,62 @@
+/*
+#683014 saddle brown
+#f6f0de beige
+#30270e Dark Olive green
+#979166 dark khaki
+#dfc5a4 Tan
+
+second image
+
+#b76840 Peru
+#6d6754 dim gray
+#9c9277 rosy brown
+
+New ones
+
+#29F073 much lighter one
+#22D464 lighter olive for buttons
+#19E063 darker olive
+
+
+#EAA565 copper light
+*/
+
+
+
+
+body {
+  background-color: #f6f0de;
+
+}
+
+
+.navbar{
+
+background-color: #683014 ;
+
+
+}
+
+
+.col-4 {
+
+  color: #683014;
+  padding: 20px;
+  padding-left: 10px;
+}
+
+/*
+                      botones
+*/
+.btn-outline-success {
+  background-color: #22D464 ;
+  color: white;
+  margin-top: 10px;
+
+
+ }
+.btn-outline-success:hover {
+  background-color: #29F073 ;
+
+
+}

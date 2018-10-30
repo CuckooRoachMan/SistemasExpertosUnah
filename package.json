@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/CuckooRoachMan/SistemasExpertosUnah/issues"
   },
-  "homepage": "https://github.com/CuckooRoachMan/SistemasExpertosUnah#readme"
+  "homepage": "https://github.com/CuckooRoachMan/SistemasExpertosUnah#readme",
+  "keywords": [
+    "bwami"
+  ],
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
