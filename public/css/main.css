@@ -25,7 +25,25 @@ New ones
 
 
 body {
-  background-color: #f6f0de;
+
+  background-image: url("img/background-pattern.png");
+  
+  background-color: #f6f0de
+
+
+}
+
+h1 {
+  align-content: center;
+}
+
+.vertical-hr {
+
+    color: black;
+    border:         none;
+
+    height:         10vh;
+    width:          1px;
 
 }
 
