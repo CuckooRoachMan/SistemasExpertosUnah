@@ -76,24 +76,27 @@
   			</div>
 
 		</div>
-        
+
 		<!--
         <form action="?" method="POST">
           <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
           <br/>
           <input type="submit" value="Submit">
         </form>
--->			
+-->
 		<center>
 			<button type="button" class="btn btn-outline-success" style="margin-top:30px" id="btn-registrar">Registrar</button>
 		</center>
-        
+
       </div>
   </main>
   <div class="square-h-2"></div>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script src="js/jquery.min.js"></script>
+
+<script src="js/jquery.js"></script>
+
+node_modules/jquery/dist/
     <script>
         /* $(document).ready(function(){
             //Se cargo todo el DOM
@@ -125,7 +128,7 @@
             var parametros = `nombre=${$("#nombre").val()} & apellido=${$("#apellido").val()} & edad=${$("#edad").val()} & password=${$("#password").val()} & nacimiento=${$("#dob").val()}`;
             console.log(parametros);
             $.ajax({
-                url:"/guardar",
+                url:"/registrar-usuarios",
                 method:"GET",
                 data: parametros,
                 dataType:"json", //json
