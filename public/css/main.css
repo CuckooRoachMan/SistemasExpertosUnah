@@ -25,10 +25,82 @@ Nuevos Nuevos
 #3f888f; turquesa background
 
 */
+/*Landing*/
+#landing-page{
+  border-radius: 10px;
+}
+.h-title-l{
+  height:20em;
+}
+.h-content-l{
+  height:20em;
+}
+.font-l-titles{
+  font-size: 7em;
+  color:#FFF;
+  font-family: 'Averia Serif Libre', cursive;
+}
+@media screen and (max-width: 416px) {
+  .font-l-titles{
+    font-size: 4em;
+  }
+}
+/*Clases de Fuentes*/
+.font-logo{
 
+font-family: 'Arvo', serif;
 
+}
+/*Clases de Color*/
 
+.bg-dark-olive{
+  background-color: #15aa4d;
+}
+.bg-turquoise{
+  background-color: #3f878f;
+}
+.bg-tr-turquoise{
+  background-color: #3f878fe6;
+}
+    
+.f-turquoise{
+  color: #3f888f;
+}
+.bg-tr-black{
+  background-color: #000505fa;
+}
+.bg-tr-white{
+  background-color: #fbfbfbd9;
+}
+img {
+  max-width: 90%;
+  height: auto;
+}
 
+/*Clases de navbar*/
+.navbar-brand {
+    display: inline-block;
+    padding: 0.3rem 2rem;
+    font-size: 1.2rem;
+    line-height: inherit;
+    font-weight: bold;
+    white-space: nowrap;
+    margin: 0px 3px 0px -12px;
+    color:white!important;
+}
+.navbar-brand:hover{
+ background-color: #56b9c3;
+}
+/*Clases de Flex*/
+.flex-centered{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-center{
+  
+  
+}
 body {
 
   background-image: url("img/background-pattern-2.png");
@@ -38,6 +110,14 @@ body {
   */
   background-color: #3f888f ;
 
+}
+.square-h-2{
+    height: 1em;
+  }
+@media screen and (min-width: 574px) {
+  .square-h-2{
+    display: none; 
+  }
 }
 
 h1 {
@@ -56,13 +136,6 @@ h1 {
 }
 
 
-.navbar{
-
-background-color: #683014 ;
-
-
-}
-
 
 .col-4 {
 
@@ -70,15 +143,35 @@ background-color: #683014 ;
   padding: 20px;
   padding-left: 10px;
 }
+/*Clases de Tamaño*/
+.w-100{
+  width: 100%;
+}
+.w-9{
+  width: 9%;
+}
 
+/*Clases de Lineas*/
+.vl-login{
+  border-left: 4px;
+  border-left-style: solid;
+  border-color:#3f888f;
+
+}
+@media screen and (max-width: 574px) {
+  .vl-login{
+  border-left: 0px;
+  border-left-style: none;
+  }
+}
 /*
+
                       botones
 */
 .btn-outline-success {
   background-color: #22D464 ;
   color: white;
-  margin-top: 10px;
-
+  font-size: 1.0em;
 
  }
 .btn-outline-success:hover {
@@ -86,10 +179,21 @@ background-color: #683014 ;
 
 
 }
+#login{
+    width: 90%;
+    min-width: 18em;
+    padding: 1.9em;
+    max-width: 40em;
 
-#landing-page{
-  border-radius: 10px;
 }
+#registro {
+    width: 90%;
+    min-width: 18em;
+    padding: 1.9em;
+    max-width: 40em;
+
+}
+
 
 #edit-space {
   border-radius: 10px;
@@ -101,5 +205,14 @@ background-color: #683014 ;
   padding:20px; margin-left:10px;
   border-right: 100px;
   border-color: black;
+
+}
+.input-green{
+    width: 100%;
+    border-color: #9dc5a4;
+    border-radius: 3.5px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #e2e4e333;
 
 }
