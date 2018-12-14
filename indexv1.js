@@ -9,51 +9,33 @@ var session = require("express-session");
 //use
 //session (not used yet)
 app.use(session({secret:"ASDFE$%#%",resave:true, saveUninitialized:true}));
-//
-
-
-
-app.use(express.static("public"));//Ejecutar middlewares.
 // body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-
+//express
+app.use(express.static("public"));//Ejecutar middlewares.
 //credenciales
 var credenciales = {
     user: "root",
     password:"akatsuki9",
-    database:"bwami",
     host:"localhost",
-    port:"3306"
+    port:"3306",
+    database:"bwami",
 };
 
-
-
-
-
-
-pp.post("/procesar",function(req,res){ //req: Peticion, res: Respuesta
-
-    //req.query es un JSON con los valores enviados mediante GET
-    //req.body es un JSON con los valores enviados mediante POST, es necesario instalar el modulo body-parser
-    res.send("Información recibida" + JSON.stringify(req.body));
-    res.end();
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
-
-app.get("/landing.html",function(req,res){
-    res.send("<html><body><h1>Hola mundo</h1></body></html>");
-    res.end();
+app.get('/', function(req, res, next) {
+  // Handle the get for this route
 });
 
-
-
-
-
-
-
-
-
+app.post('/', function(req, res, next) {
+ // Handle the post for this route
+});
 
 
 
@@ -63,24 +45,21 @@ app.get("/landing.html",function(req,res){
 //registrar usuario nuevo
 app.post('/registrar-usuarios', function(request, response){
     var conexion = mysql.createConnection(credenciales);
-        sql = "call call sp_Insertarusuarios('jamz', 'Martinez', 1993-05-05, 'my@mail.com','#78Margarita');";
-        conexion.query(sql,
-            function(err, data, fields){
-                var datos = data[0];
-                if (data.length>0){
-                    console.log(datos);
-                    response.send(datos);
-                }else{
-                    response.send({estado:1, mensaje: "No se pudo cargar el datos"});
-                }
-            }
-            );
-    });
+    var sql = "call sp_Insertarusuarios(?, ?, ?, ?,?)";
+      conexion.query(
+        sql,
+        [request.body.nombre,
+        request.body.apellido,
+        request.body.dob,
+        request.body.email,
+        request.body.password],
+        function(err, result){
+          if (err) throw err;
+          response.send(result);
+        }
+        );
+});
 
 
 
-
-
-
-
-app.listen(8111);
+app.listen(8111, function(){ console.log("Servidor iniciado");});

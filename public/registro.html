@@ -95,52 +95,7 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <script src="js/jquery.js"></script>
-
-node_modules/jquery/dist/
-    <script>
-        /* $(document).ready(function(){
-            //Se cargo todo el DOM
-            $.ajax({
-                url: "/usuarios",
-                method:"GET",
-                dataType:"json",
-                success:function(res){
-                    console.log(res);
-                    res.forEach(element => {
-                        $("#contenido-tabla").append(`
-                            <tr>
-                                <td>${element.nombre}</td>
-                                <td>${element.apellido}</td>
-                                <td>${element.dob}</td>
-                                <td>${element.password}</td>
-                                <td>${element.pais}</td>
-                            </tr>`
-                        )
-                    });
-                },
-                error:function(error){
-                    console.error(error);
-                }
-            });
-        });
-        */
-        $("#btn-registrar").click(function(){
-            var parametros = `nombre=${$("#nombre").val()} & apellido=${$("#apellido").val()} & edad=${$("#edad").val()} & password=${$("#password").val()} & nacimiento=${$("#dob").val()}`;
-            console.log(parametros);
-            $.ajax({
-                url:"/registrar-usuarios",
-                method:"GET",
-                data: parametros,
-                dataType:"json", //json
-                success: function(respuesta){ //200 OK
-                    console.log(respuesta);
-                },
-                error:function(error){
-                    console.error(error);
-                }
-            });
-        });
-    </script>
+<script src=js/controlador-registro.js></script>
 </body>
 
 </html>
