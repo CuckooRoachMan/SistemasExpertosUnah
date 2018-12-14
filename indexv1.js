@@ -61,5 +61,33 @@ app.post('/registrar-usuarios', function(request, response){
 });
 
 
+//Login
+app.post('/login', function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql = "call sp_validateLogin(?, ?)";
+    conexion.query(sql,
+        [ request.body.email, request.body.password],
+        function(err, data, fields){
+       			    //usuario = data[0][0];
+                //console.log(data[0][0]);
+                if (data[0].length>0){
+                    request.session.mail = data.txt_mail_usuarios;
+                    request.session.tipo = data.id_tipo_usuarios;
+                    request.session.usuario = data.txt_nombre_usuarios;
+                    request.session.idusuario = data.id_usuarios_pk;
+                    request.session.logged=0;
+                    //console.log(request);
+   					        //usuario.estado=0;
+                    res=data[0][0];
+    				        response.send(res);
+                }else{
+                    response.send({estado:1, mensaje: "login incorrect"});
+                }
+        }
+
+    );
+    });
+
+
 
 app.listen(8111, function(){ console.log("Servidor iniciado");});

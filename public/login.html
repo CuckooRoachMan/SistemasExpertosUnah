@@ -32,6 +32,8 @@
     </style>
 
   </head>
+
+
 <body>
 
   <nav class="navbar navbar-light static-top bg-tr-white">
@@ -53,24 +55,33 @@
 
         <div class="form-group vl-login col-sm-6 col-lg-6 col-12 col-md-6">
         <br>
-        <label for=""> Usuario </label><br>
-          <input class="input-green" type="email" name="" value="" id="email"><br>
+        <label for=""> Correo Electronico </label><br>
+          <input class="input-green" type="email" name="" value="" id="login-email"><br>
+          <div class="valid-feedback"></div>
+          <div id="show-feedback-email" class="invalid-feedback">Este campo es obligatorio</div>
           <label>Contraseña</label><br>
-            <input class="input-green" type="password" name="" value="" id="password">
+          <input class="input-green" type="password" name="" value="" id="login-password">
+          <div class="valid-feedback"></div>
+          <div id="show-feedback-password" class="invalid-feedback">Este campo es obligatorio</div>
+
           <center>
-      <button type="button" class="btn btn-outline-success w-100" style="margin-top:30px" id="btn-registrar">Login</button>
+      <button type="button" class="btn btn-outline-success w-100" style="margin-top:30px" id="btn-login">Login</button>
     </center>
-     
+
 
           <label> <a href="registro.html">Nuevo? Crea una cuenta</a></label>
 
-        
+
         </div>
-       
+
 
     </div>
-    
-        
+
+
       </div>
   </main>
   <div class="square-h-2"></div>
+
+  <script src="js/jquery.js"></script>
+  <script src=js/controlador-login.js></script>
+</body>
