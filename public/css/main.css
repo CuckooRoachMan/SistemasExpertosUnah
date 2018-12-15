@@ -25,24 +25,87 @@ Nuevos Nuevos
 #3f888f; turquesa background
 
 */
+ul.a {
+  list-style-type: circle;
+}
+.row {
+    width: 100%;
+  }
+
+/*Login*/
+.font-l-login{
+  font-size: 5em;
+  color:#FFF;
+  font-family: 'Averia Serif Libre', cursive;
+}
+@media screen and (max-width: 680px) {
+  .font-l-login{
+    font-size: 4em;
+  }
+}
 /*Landing*/
 #landing-page{
   border-radius: 10px;
 }
+.img-landing{
+  max-width: 100%;
+  height: auto;
+}
+@media screen and (min-width: 680px) {
+  .img-landing{
+  max-width: 50%;
+  height: auto;
+}
+}
+.img-logo-landing{
+  max-width: 40%;
+  height: auto;
+}
+@media screen and (max-width: 800px) {
+  .img-logo-landing{
+  max-width: 80%;
+  height: auto;
+}
+}
 .h-title-l{
-  height:20em;
+  min-height:20em;
 }
 .h-content-l{
-  height:20em;
+  min-height:20em;
 }
 .font-l-titles{
   font-size: 7em;
   color:#FFF;
   font-family: 'Averia Serif Libre', cursive;
 }
-@media screen and (max-width: 416px) {
+@media screen and (max-width: 520px) {
   .font-l-titles{
     font-size: 4em;
+  }
+}
+.font-l-subtitles{
+  font-size: 3em;
+  color:#FFF;
+  padding: 0em .4em;
+}
+@media screen and (max-width: 700px) {
+  .font-l-subtitles{
+    font-size: 2.5em;
+  }
+}
+.font-l-content{
+  padding: .1em .9em;
+  font-size: 1.6em;
+  color:#FFF;
+}
+@media screen and (max-width: 416px) {
+  .font-l-content{
+    font-size: 1.4em;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .margin-left-7{
+    margin-left: 7em;
   }
 }
 /*Clases de Fuentes*/
@@ -50,6 +113,30 @@ Nuevos Nuevos
 
 font-family: 'Arvo', serif;
 
+}
+.font-general{
+  font-family: Palatino,Palatino Linotype,Palatino LT STD,Book Antiqua,Georgia,serif; 
+}
+.font-slogan{
+  font-size: 3em;
+  font-family: Palatino,Palatino Linotype,Palatino LT STD,Book Antiqua,Georgia,serif; 
+  color: #FFF;
+}
+/*Perfil*/
+.profile-background{
+  background-image: url("../img/profile.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  height:15em;
+}
+.profile{
+   object-fit: cover;
+  width:164px;
+  height:164px;
+
+  border-radius: 50%;
 }
 /*Clases de Color*/
 
@@ -62,9 +149,26 @@ font-family: 'Arvo', serif;
 .bg-tr-turquoise{
   background-color: #3f878fe6;
 }
-    
+.bg-tr-dark-turquoise{
+  background-color: #074b52e6;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color: #3c8181;
+    font-size: 1.3em;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+    color:#0e6d0b;
+}
+
+.f-dark-olive{ 
+  color: #15aa4d!important;
+}  
 .f-turquoise{
   color: #3f888f;
+}
+.f-white{
+  color: #fff;
 }
 .bg-tr-black{
   background-color: #000505fa;
@@ -76,20 +180,24 @@ img {
   max-width: 90%;
   height: auto;
 }
+.img-logo-nav {
+  max-width: 3.2em;
+  height: auto;
+}
 
 /*Clases de navbar*/
 .navbar-brand {
     display: inline-block;
-    padding: 0.3rem 2rem;
-    font-size: 1.2rem;
+    padding: 0.1rem 1rem;
+    font-size: 1.6rem;
     line-height: inherit;
     font-weight: bold;
     white-space: nowrap;
     margin: 0px 3px 0px -12px;
-    color:white!important;
+    color: #15aa4d!important;
 }
 .navbar-brand:hover{
- background-color: #56b9c3;
+ background-color: #daefda;
 }
 /*Clases de Flex*/
 .flex-centered{
@@ -97,9 +205,9 @@ img {
   align-items: center;
   justify-content: center;
 }
-.flex-center{
+.block{
   
-  
+  display: block;
 }
 body {
 

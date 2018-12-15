@@ -9,8 +9,7 @@
 
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
-    <link rel="shortcut icon" href="img/321px-Snake_icon.svg.png" />
-    <!-- css -->
+    <link rel="shortcut icon" href="img/fav-icon.png" />    <!-- css -->
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -32,16 +31,15 @@
     </style>
 
   </head>
-
-
 <body>
 
   <nav class="navbar navbar-light static-top bg-tr-white">
-      <a class="navbar-brand bg-turquoise font-logo" href="landing.html">BWAMI</a>
+      <a class="navbar-brand font-logo f-dark-olive" href="landing.html"><center>Bwami</center>
+</a>
       <!--
       <a class="btn btn-outline-success" href="#" style="margin-left:1300px">Sign In</a>
     -->
-      <a class="btn btn-outline-success float-right" href="#">Registro</a>
+      <a class="btn btn-outline-success float-right" href="registro.hmtl">Registro</a>
     </div>
   </nav>
   <div class="square-h-2"></div>
@@ -49,23 +47,22 @@
                                      <!--Contenido Principal-->
       <div class="bg-white f-turquoise " id="login">
         <div class="row">
-        <div class="form-group col-sm-6 col-lg-6 col-12 col-md-6">
+        <div class="col-sm-6 col-lg-6 col-12 col-md-6">
           <center><img src="img/logo.png" alt="BWAMI"></center>
+          <center><div class="font-logo font-l-login f-dark-olive">Bwami</div></center>
+
         </div>
 
         <div class="form-group vl-login col-sm-6 col-lg-6 col-12 col-md-6">
         <br>
-        <label for=""> Correo Electronico </label><br>
+        <label for=""> Usuario </label><br>
           <input class="input-green" type="email" name="" value="" id="login-email"><br>
-          <div class="valid-feedback"></div>
-          <div id="show-feedback-email" class="invalid-feedback">Este campo es obligatorio</div>
           <label>Contraseña</label><br>
-          <input class="input-green" type="password" name="" value="" id="login-password">
-          <div class="valid-feedback"></div>
-          <div id="show-feedback-password" class="invalid-feedback">Este campo es obligatorio</div>
-
+            <input class="input-green" type="password" name="" value="" id="login-password">
+            <label id="show-feedback-email"><label>
           <center>
       <button type="button" class="btn btn-outline-success w-100" style="margin-top:30px" id="btn-login">Login</button>
+
     </center>
 
 
@@ -80,8 +77,10 @@
 
       </div>
   </main>
-  <div class="square-h-2"></div>
 
+
+  <div class="square-h-2"></div>
   <script src="js/jquery.js"></script>
-  <script src=js/controlador-login.js></script>
+  <script src="js/controlador-login.js"></script>
 </body>
+</html>
