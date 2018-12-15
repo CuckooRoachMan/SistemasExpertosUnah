@@ -89,5 +89,35 @@ app.post('/login', function(request, response){
     });
 
 
+app.use(express.static("public-usuario"));//Ejecutar middlewares.
+//load file root
+app.post('/load-file-system-root', function(request, response){
+    console.log(request.session.idusuario)
+    var conexion = mysql.createConnection(credenciales);
+    var sql = `
+    select txt_nombre_carpetas from carpetas
+    inner join Usuarios
+    where id_usuarios_pk = id_usuarios_fk
+    and id_usuarios_pk = ${request.session.idusuario}
+    `
+
+    ;
+    conexion.query(sql,
+    [],
+        function(err, data, fields){
+
+                if (data[0].length>0){
+
+                    res=data[0][0];
+    				        response.send(res);
+                }else{
+                    response.send({estado:1, mensaje: "Algo paso"});
+                }
+        }
+
+    );
+    });
+
+
 
 app.listen(8111, function(){ console.log("Servidor iniciado");});
