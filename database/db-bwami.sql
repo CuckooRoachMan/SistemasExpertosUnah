@@ -10,7 +10,7 @@ CREATE TABLE Usuarios (
 id_usuarios_pk int primary key auto_increment,
 txt_nombre_usuarios varchar(50),
 txt_apellido_usuarios varchar(50),
-date_fechanacimiento_usuarios date,
+#date_fechanacimiento_usuarios date,
 date_creacion_usuarios timestamp default current_timestamp,
 txt_correo_usuarios varchar(255) DEFAULT NULL,
 txt_password_usuarios varchar(255) DEFAULT NULL,
@@ -55,24 +55,27 @@ id_archivos_pk int primary key auto_increment,
 txt_nombre_archivos varchar(50),
 date_archivos_subcarpetas timestamp default current_timestamp,
 date_update_archivos timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-id_subcarpetas_fk int
+id_subcarpetas_fk int,
+
+txt_contenido_archivos longtext
+
 );
 
 
 
 
 DELIMITER //
-CREATE PROCEDURE sp_Insertarusuarios( IN nombre varchar(50), apellido varchar(50), IN fecha timestamp, IN correo varchar(255), IN pass varchar(255))
+CREATE PROCEDURE sp_Insertarusuarios( IN nombre varchar(50), IN apellido varchar(50),  IN correo varchar(255), IN pass varchar(255))
 BEGIN 
 #Podemos usar un select anterior como ejemplo
 INSERT INTO Usuarios(
 txt_nombre_usuarios,
 txt_apellido_usuarios,
-date_fechanacimiento_usuarios,
+
 txt_correo_usuarios,
 txt_password_usuarios
 )
-values (nombre,apellido, fecha, correo, md5(pass));
+values (nombre, apellido,  correo,  md5(pass));
 
 set @id = (select id_usuarios_pk from Usuarios where md5(pass)=txt_password_usuarios and current_timestamp= date_creacion_usuarios); 
 
@@ -101,13 +104,51 @@ set @idsubcarpeta = (select id_subcarpetas_pk from subcarpetas where current_tim
 
 Insert into archivos(
 txt_nombre_archivos,
-id_subcarpetas_fk 
+id_subcarpetas_fk,
+txt_contenido_archivos 
 )
 values 
-('Ejemplo.html',@idsubcarpeta),
-('Ejemplo.js',@idsubcarpeta),
-('Ejemplo.css',@idsubcarpeta),
-('Ejemplo.txt',@idsubcarpeta);
+('Ejemplo.html',@idsubcarpeta, 
+'
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+
+</body>
+</html> 
+'
+),
+('Ejemplo.js',@idsubcarpeta, 
+'
+//primer programa
+console.log("hola mundo");
+'
+),
+
+('Ejemplo.html',@idsubcarpeta, 
+'
+ body {
+  background-color: lightblue;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+'
+)
+;
 #No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
 END;//
 
@@ -129,12 +170,30 @@ call sp_Insertarusuarios('bruce', 'wayne', 1993-05-05, 'bruce@wayne.com','test12
 
 call sp_validateLogin('bruce@wayne.com','test123');
 
+#selects de prueba
 
-select * from Usuarios
 
-select * from carpetas
+select * from Usuarios;
 
-select * from subcarpetas
+select * from carpetas;
 
-select * from archivos
+select * from subcarpetas;
+
+select * from archivos;
+
+
+select txt_nombre_subcarpetas , id_subcarpetas_pk from subcarpetas
+    inner join carpetas
+    where id_carpetas_pk = id_carpetas_fk
+    and id_carpetas_pk = 1;
+
+
+
+  select txt_nombre_archivos , id_archivos_pk from archivos
+    inner join subcarpetas
+    where id_subcarpetas_pk = id_subcarpetas_fk
+    and id_subcarpetas_pk = 1;
+
+
+
 

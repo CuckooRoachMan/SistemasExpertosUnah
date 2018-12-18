@@ -30,6 +30,7 @@ ul.a {
 }
 .row {
     width: 100%;
+    margin: 0em;
   }
 
 /*Login*/
@@ -255,6 +256,9 @@ h1 {
 .w-100{
   width: 100%;
 }
+.h-100{
+  height:100%;
+}
 .w-9{
   width: 9%;
 }
@@ -302,17 +306,20 @@ h1 {
 
 }
 
-
+html,body { 
+  height: 100%; 
+  margin: 0px; 
+  padding: 0px; 
+}
 #edit-space {
   border-radius: 10px;
   margin: 10px;
 }
 
 #menu{
-  border-radius: 10px;
-  padding:20px; margin-left:10px;
-  border-right: 100px;
-  border-color: black;
+  height:90%;
+  max-width: 12em;
+  padding: 0.7em;
 
 }
 .input-green{
@@ -323,4 +330,64 @@ h1 {
     border-style: solid;
     background-color: #e2e4e333;
 
+}
+.file{
+  background-color: #FFF;
+  border-radius: .25em;
+  max-width: 14.3em;
+  margin: .4em;
+  font-size: 1.2em;
+  height: 3em;
+  padding: .4em;
+  }
+.file i{
+  color: #67d565;
+  font-size:2em;
+  }
+  #file-system{
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    padding:1em;
+    min-width: 12.4em;
+    height: 90%; 
+    position: fixed; 
+    z-index: 1;
+    top: 57px;
+    left: 161px;
+    overflow-y:auto;
+  }
+  .jc-flex-start-center{
+    display: flex; 
+    align-items: center;
+    justify-content: flex-start;
+  }
+.menu-btn{
+  padding:.4em;
+  border-radius:.25em;
+  margin-bottom: .4em;
+
+}
+.menu-btn i{
+  font-size:1.6em;
+
+}
+
+@media screen and (max-width: 380px) {
+  .menu-btn label{
+    display: none;
+  }
+
+    #file-system{
+    top: 72px;
+    left: 48px;
+  }
+}
+.text-overflow { 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

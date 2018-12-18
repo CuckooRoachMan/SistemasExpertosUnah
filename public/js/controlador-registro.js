@@ -2,7 +2,7 @@
 
         var parametros= "nombre="+$("#nombre").val() + "&" +
                         "apellido="+$("#apellido").val() + "&" +
-                        "dob="+$("#dob").val() + "&" +
+
                         "email="+$("#email").val() + "&" +
                         "password="+$("#password").val();
 
@@ -17,6 +17,12 @@
                 if(respuesta){
                     window.location = "login.html";
                   }
+                else {
+                  $("#hide").click(function(){
+                    $("p").show();
+                  });
+                }
+
 
             }
 
