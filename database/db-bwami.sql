@@ -65,6 +65,7 @@ txt_contenido_archivos longtext
 
 
 DELIMITER //
+
 CREATE PROCEDURE sp_Insertarusuarios( IN nombre varchar(50), IN apellido varchar(50),  IN correo varchar(255), IN pass varchar(255))
 BEGIN 
 #Podemos usar un select anterior como ejemplo
@@ -91,7 +92,7 @@ values
 ('Misc',@id)
 ;
 
-set @idcarpeta = (select id_carpetas_pk from carpetas where current_timestamp = date_creacion_carpetas and txt_nombre_carpetas='Proyectos'); 
+set @idcarpeta = (select id_carpetas_pk from carpetas join Usuarios  where id_usuarios_pk = id_usuarios_fk  and txt_nombre_carpetas='Proyectos' order by id_usuarios_pk desc limit 1); 
 
 Insert into subcarpetas(
 txt_nombre_subcarpetas,
@@ -100,7 +101,8 @@ id_carpetas_fk
 values 
 ('Mi primer Proyecto',@idcarpeta);
 
-set @idsubcarpeta = (select id_subcarpetas_pk from subcarpetas where current_timestamp = date_creacion_subcarpetas);
+set @idsubcarpeta = (
+select id_subcarpetas_pk from subcarpetas join carpetas  where id_carpetas_pk = id_carpetas_fk order by id_subcarpetas_pk desc limit 1 );
 
 Insert into archivos(
 txt_nombre_archivos,
@@ -231,9 +233,11 @@ call sp_validateLogin('bruce@wayne.com','test123');
 
 call sp_insertarCarpetas('nuevacarpeta', 1 );
 
-call sp_insertarsubCarpetas('nuevasubcarpeta', 6 );
+call sp_insertarsubCarpetas('nuevasubcarpeta', 1 );
 
-call sp_insertarArchivos('New File.html', 6, ' Hello my man ');
+call sp_insertarsubCarpetas('nuevasubcarpeta', 2 );
+
+call sp_insertarArchivos('New File.html', 1, ' Hello my man ');
 
 call sp_updateArchivos(1,'Newman Type Longhorn');
 #selects de prueba

@@ -128,13 +128,16 @@ $.ajax({
 function select(id){
   if($('#prev-selected').val()!=''){
     var id_prev_selected=$('#prev-selected').val();
+    //console.log(id_prev_selected);
      id_prev_selected ='#'+id_prev_selected;
     $(id_prev_selected).css('background-color', '#FFF');
+  //console.log(id_prev_selected);
   }
   var id_format ='#'+id;
-  console.log(id_format);
+  //console.log(id_format);
   $(id_format).css('background-color', '#c9f6e9');
-  $('#id_prev_selected').val(id);
+  $('#prev-selected').val(id);
+  console.log(id);
 }
 
 function openFile(id){
@@ -142,7 +145,7 @@ function openFile(id){
         var parametros = "file="+file;
     $.ajax({
       url:"/obtener-codigo",
-      method:"GET",
+      method:"POST",
       data: parametros,
       dataType:"json",
       success:function(response){
@@ -160,8 +163,21 @@ function openFolder(id){
     console.log($('#folder').val());
 
 }
-$('#folder').val(0);//Se carga inicialmente la carpeta root
-//en caso que se cambie la carpeta
-$('#folder').change(function(){
+$(document).ready(function(){
   loadFileSystem();
+  $('#folder').val(0);//Se carga inicialmente la carpeta root
+
+});
+
+$("#btn-new-file").click(function(){
+  $('#modal-nuevo-archivo').modal('toggle');
+});
+$("#btn-new-folder").click(function(){
+  $('#modal-nueva-carpeta').modal('toggle');
+});
+$("#btn-crear-carpeta").click(function(){
+  ///Crear nueva carpeta
+});
+$("#btn-crear-archivo").click(function(){
+  ///Crear nuevo archivo
 });

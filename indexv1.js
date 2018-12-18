@@ -261,7 +261,9 @@ app.post('/editar-archivo', function(request, response){
 
 /// editar perfil
 
+
 /// agregar a compartidos  // compartir
+
 
 /// cambiar plan
 
