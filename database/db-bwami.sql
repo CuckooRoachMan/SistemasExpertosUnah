@@ -147,8 +147,7 @@ p {
   font-size: 20px;
 }
 '
-)
-;
+);
 #No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
 END;//
 
@@ -164,12 +163,79 @@ where (mail = txt_correo_usuarios AND  md5(pass) = txt_password_usuarios);
 #No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
 END;//
 
+
+CREATE PROCEDURE sp_insertarCarpetas( IN nombre varchar(250), IN id_usuario int )
+BEGIN 
+#Podemos usar un select anterior como ejemplo
+
+Insert into carpetas(
+txt_nombre_carpetas,
+id_usuarios_fk 
+)
+values 
+( nombre , id_usuario);
+
+ 
+#No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
+END;//
+
+delimiter //
+CREATE PROCEDURE sp_insertarsubCarpetas( IN nombre varchar(250), IN id_carpeta int )
+BEGIN 
+#Podemos usar un select anterior como ejemplo
+
+Insert into subcarpetas(
+txt_nombre_subcarpetas,
+id_carpetas_fk 
+)
+values 
+( nombre , id_carpeta);
+
+ 
+#No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
+END;//
+
+delimiter //
+CREATE PROCEDURE sp_insertarArchivos( IN nombre varchar(250), IN id_subcarpeta int, IN contenido longtext )
+BEGIN 
+#Podemos usar un select anterior como ejemplo
+
+Insert into archivos(
+txt_nombre_archivos,
+id_subcarpetas_fk,
+txt_contenido_archivos 
+)
+values 
+( nombre , id_subcarpeta, contenido);
+
+ 
+#No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
+END;//
+
+delimiter //
+CREATE PROCEDURE sp_updateArchivos( IN id int , IN contenido longtext )
+BEGIN 
+#Podemos usar un select anterior como ejemplo
+
+UPDATE archivos set txt_contenido_archivos = contenido where id_archivos_pk = id;  
+ 
+#No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
+END;//
+
+
 DELIMITER ;
 
-call sp_Insertarusuarios('bruce', 'wayne', 1993-05-05, 'bruce@wayne.com','test123');
+call sp_Insertarusuarios('bruce', 'wayne',  'bruce@wayne.com','test123');
 
 call sp_validateLogin('bruce@wayne.com','test123');
 
+call sp_insertarCarpetas('nuevacarpeta', 1 );
+
+call sp_insertarsubCarpetas('nuevasubcarpeta', 6 );
+
+call sp_insertarArchivos('New File.html', 6, ' Hello my man ');
+
+call sp_updateArchivos(1,'Newman Type Longhorn');
 #selects de prueba
 
 
@@ -192,7 +258,7 @@ select txt_nombre_subcarpetas , id_subcarpetas_pk from subcarpetas
   select txt_nombre_archivos , id_archivos_pk from archivos
     inner join subcarpetas
     where id_subcarpetas_pk = id_subcarpetas_fk
-    and id_subcarpetas_pk = 1;
+    and id_subcarpetas_pk = 3;
 
 
 

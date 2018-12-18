@@ -155,6 +155,8 @@ app.post('/obtener-subcarpetas', function(request, response){
     );
     });
 
+//
+
 
 // load files
 
@@ -183,6 +185,87 @@ app.post('/obtener-archivos', function(request, response){
 
     );
     });
+
+
+/// crear carpeta
+app.post('/crear-carpeta', function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql = "sp_insertarCarpetas(?, ?)";
+      conexion.query(
+        sql,
+        [request.body.nombre,
+        request.body.id],
+        function(err, result){
+          if (err) throw err;
+          response.send(result);
+        }
+        );
+});
+
+// crear  sub carpeta
+
+app.post('/crear-subcarpeta', function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql = "sp_insertarsubCarpetas(?, ?)";
+      conexion.query(
+        sql,
+        [request.body.nombre,
+        request.body.id],
+        function(err, result){
+          if (err) throw err;
+          response.send(result);
+        }
+        );
+});
+
+//crear archivos
+
+app.post('/crear-archivo', function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql = "sp_insertarArchivos(?, ?, ?)";
+      conexion.query(
+        sql,
+        [request.body.nombre,
+        request.body.id,
+        request.body.contenido
+        ],
+
+        function(err, result){
+          if (err) throw err;
+          response.send(result);
+        }
+        );
+});
+
+// editar archivo
+
+app.post('/editar-archivo', function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql = "sp_updateArchivos(?, ?)";
+      conexion.query(
+        sql,
+        [
+        request.body.id,
+        request.body.contenido
+        ],
+
+        function(err, result){
+          if (err) throw err;
+          response.send(result);
+        }
+        );
+});
+
+/// borrar archivo
+
+
+/// editar perfil
+
+/// agregar a compartidos  // compartir
+
+/// cambiar plan
+
+
 
 
 
