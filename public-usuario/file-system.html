@@ -1,5 +1,3 @@
-
-<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -22,7 +20,7 @@
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
-  <link rel="shortcut icon" href="img/321px-Snake_icon.svg.png" >
+  <link rel="shortcut icon" href="img/fav-icon.png" >
 
   <meta name="google-signin-client_id" content= "566769824550-emsnq4mper64no00oo0n075b5u0ekmkg.apps.googleusercontent.com">
 
@@ -36,12 +34,16 @@
 
   <nav class="navbar navbar-light navbar-expand-lg static-top bg-tr-white">
       <a class="navbar-brand font-logo f-dark-olive" href="landing.html"><center>Bwami</center></a>
-
+  
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
         <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="file-system.html">Mis archivos</a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" data-toggle="modal" data-target="#modal-perfil">
           Perfil
@@ -53,48 +55,147 @@
     </ul>
   </div>
   <div class=" float-right">
-    <button class="navbar-toggler btn-outline-success" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-      <a class="btn btn-outline-success" href="landing.html"><i class="fas fa-sign-out-alt"></i></a>
+      <a id="btn-perfil"class="btn btn-outline-success" data-toggle="modal" data-target="#modal-perfil">
+        <i class=" f-white fas fa-user-alt"></i>
+      </a>
+      <a id="btn-logout" class="btn btn-outline-success" href="landing.html" >
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
 
   </div>
 </nav>
-
-  <div class= "row">
-
-    <menu class="col-2 flex-column bg-light" id="menu" style="">
-      <button type="button" class="btn btn-outline-success">
-        <span style="font-size: 1em; color: white;">
-          <i class="fas fa-folder-plus"></i>
-        </span>
-        <label> Nueva Carpeta </label>
-      </button>
-      <hr>
-      <a href="#"> Mis Carpetas</a>
-    </menu>
-
-    <main class="col-8 bg-light " id="edit-space"  >
-    <p>
-      <xmp>
-
-
-        <script async="" src="https://www.computerhope.com/recent.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="https://www.computerhope.com/cdn/site.js"></script><a href="#" class="back-to-top">Back to Top</a>
-        <script async="" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=computerhope"></script>
-
-
-
-      </xmp>
-    </p>
-    </main>
-
-    <div class="col-1">
-
-    </div>
-
+<main>
+<div class="row" style="margin: 0em;">
+<!--Inicio de Menu-->
+  <div id="menu" class="bg-light">
+      <!--Boton Nueva Carpeta-->
+      <div id="btn-new-folder" class="btn-outline-success menu-btn" title="Nueva Carpeta">
+        <i class="fas fa-folder-plus"></i>
+        <label>Nueva Carpeta</label>
+      </div>
+      <!--Boton Nuevo Archivo-->
+      <div id="btn-new-folder" class="btn-outline-success menu-btn" title="Nuevo Archivo">
+        <i class="fas fa-file"></i>
+        <label>Nuevo Archivo</label>
+      </div>
+      
+      <!--Boton Upgrade Plan-->
+      <div id="btn-upgrade" class="btn-outline-success menu-btn" title="Adquirir Plan">
+        <i class="fas fa-arrow-up"></i>
+        <label>Plan Premium</label>
+      </div>
+      
   </div>
+<!--Final de Menu-->
+<!--Inicio de File System-->
+  <div id ="file-system" class="" style="">
+      <!---File-->
+      <div  class="row file" id="1" data-value="${respuesta[i].nombre_archivo}"
+                  onclick="select(this.id);" ondblclick="open(this.id,'${respuesta[i].tipo_archivo}');";>
+              <div class="col-3 flex-centered"> 
+                <center><i  value="1"class="fas fa-folder"></i></center>
+              </div>
+              <div class="col-9 jc-flex-start-center" value="1" title="nombre archivo">
+                <div class="text-overflow">Carpeta</div>
+              </div>
+        </div>
+        <!---End of File--><!---File-->
+      <div  class="row file" id="1" data-value="${respuesta[i].nombre_archivo}"
+                  onclick="select(this.id);" ondblclick="open(this.id,'${respuesta[i].tipo_archivo}');";>
+              <div class="col-3 flex-centered"> 
+                <center><i  value="1"class="fas fa-folder"></i></center>
+              </div>
+              <div class="col-9 jc-flex-start-center" value="1" title="nombre archivo">
+                <div>Carpeta</div>
+              </div>
+        </div>
+        <!---End of File-->
+        <!---File-->
+      <div  class="row file" id="1" data-value="${respuesta[i].nombre_archivo}"
+                  onclick="select(this.id);" ondblclick="open(this.id,'${respuesta[i].tipo_archivo}');";>
+              <div class="col-3 flex-centered"> 
+                <center><i  value="1"class="fas fa-folder"></i></center>
+              </div>
+              <div class="col-9 jc-flex-start-center" value="1" title="nombre archivo">
+                <div>Carpeta</div>
+              </div>
+        </div>
+        <!---End of File-->
+        <!---File-->
+      <div  class="row file" id="1" data-value="${respuesta[i].nombre_archivo}"
+                  onclick="select(this.id);" ondblclick="open(this.id,'${respuesta[i].tipo_archivo}');";>
+              <div class="col-3 flex-centered"> 
+                <center><i  value="1"class="fas fa-folder"></i></center>
+              </div>
+              <div class="col-9 jc-flex-start-center" value="1" title="nombre archivo">
+                <div class="text-overflow">Carpeta</div>
+              </div>
+        </div>
+        <!---End of File-->
+        <!---File-->
+      <div  class="row file" id="1" data-value="${respuesta[i].nombre_archivo}"
+                  onclick="select(this.id);" ondblclick="open(this.id,'${respuesta[i].tipo_archivo}');";>
+              <div class="col-3 flex-centered"> 
+                <center><i  value="1"class="fas fa-folder"></i></center>
+              </div>
+              <div class="col-9 jc-flex-start-center" value="1" title="nombre archivo">
+                <div>Carpeta</div>
+              </div>
+        </div>
+        <!---End of File-->
+        <!---File-->
+      <div  class="row file" id="1" data-value="${respuesta[i].nombre_archivo}"
+                  onclick="select(this.id);" ondblclick="open(this.id,'${respuesta[i].tipo_archivo}');";>
+              <div class="col-3 flex-centered"> 
+                <center><i  value="1"class="fas fa-folder"></i></center>
+              </div>
+              <div class="col-9 jc-flex-start-center" value="1" title="nombre archivo">
+                <div>Carpeta</div>
+              </div>
+        </div>
+        <!---End of File-->
+        <!---File-->
+      <div  class="row file" id="1" data-value="${respuesta[i].nombre_archivo}"
+                  onclick="select(this.id);" ondblclick="open(this.id,'${respuesta[i].tipo_archivo}');";>
+              <div class="col-3 flex-centered"> 
+                <center><i  value="1"class="fas fa-folder"></i></center>
+              </div>
+              <div class="col-9 jc-flex-start-center" value="1" title="nombre archivo">
+                <div>Carpeta</div>
+              </div>
+        </div>
+        <!---End of File-->
+
+        <!---File-->
+      <div  class="row file" id="1" data-value="${respuesta[i].nombre_archivo}"
+                  onclick="select(this.id);" ondblclick="open(this.id,'${respuesta[i].tipo_archivo}');";>
+              <div class="col-3 flex-centered"> 
+                <center><i  value="1"class="fas fa-folder"></i></center>
+              </div>
+              <div class="col-9 jc-flex-start-center" value="1" title="nombre archivo">
+                <div>Carpeta</div>
+              </div>
+        </div>
+        <!---End of File-->
+        <!---File-->
+      <div  class="row file" id="1" data-value="${respuesta[i].nombre_archivo}"
+                  onclick="select(this.id);" ondblclick="open(this.id,'${respuesta[i].tipo_archivo}');";>
+              <div class="col-3 flex-centered"> 
+                <center><i  value="1"class="fas fa-folder"></i></center>
+              </div>
+              <div class="col-9 jc-flex-start-center" value="1" title="nombre archivo">
+                <div>Carpeta</div>
+              </div>
+        </div>
+        <!---End of File-->
+        
+  </div>
+<!--Final de File System-->
+
+</div>
+    
+</div>
+</main>
 <!-- Modal Perfil -->
 <div class="modal fade" id="modal-perfil" tabindex="-1" role="dialog" aria-labelledby="Perfil" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -112,42 +213,49 @@
         <div class="row">
         <div class="form-group col-sm-6 col-lg-6 col-12 col-md-6">
           <label for=""> Nombre </label><br>
-          <input class="input-green"  type="text" name="Nombre" value="" id="nombre">
+          <input class="input-green"  type="text" name="Nombre" value="" id="nombre-perfil">
         </div>
         <div class="form-group col-sm-6 col-lg-6 col-12 col-md-6">
             <label for="">  Apellido(s) </label><br>
-          <input class="input-green" type="text" name="Apellidos" value="" id="apellido">
+          <input class="input-green" type="text" name="Apellidos" value="" id="apellido-perfil">
         </div>
         <div class=" form-group col-12">
           <label>Fecha de Nacimiento</label><br>
-            <input class="input-green"type="date" name="" value="" id="dob"><br>
+            <input class="input-green"type="date" name="" value="" id="fecha-perfil"><br>
         </div>
         <div class="form-group col-12">
           <label>Correo</label><br>
-            <input class="input-green" type="email" name="" value="" id="email"><br>
+            <input class="input-green" type="email" name="" value="" id="email-perfil"><br>
         </div>
         <div class="form-group col-12">
           <label>Contraseña</label><br>
-            <input class="input-green" type="password" name="" value="" id="password">
+            <input class="input-green" type="password" name="" value="" id="password-perfil">
         </div>
         <div class="form-group col-12">
           <label for="">Confirmar Contraseña</label><br>
-            <input class="input-green" type="password" name="" value="" id="passwordconfirm">
+            <input class="input-green" type="password" name="" value="" id="passwordconfirm-perfil">
         </div>
 
     </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-outline-success">Guardar cambios</button>
+        <button id="btn-guardar-perfil"type="button" class="btn btn-outline-success">Guardar cambios</button>
       </div>
     </div>
   </div>
 </div>
+<!--Final de Modal Perfil-->
+<!--Hidden Types-->
+<input type="hidden" id="folder" value="">
 
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/controlador-file-system.js"></script>
+<!--Hidden Types End-->
+<!--Scripts-->
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ext-modelist.js"></script>
+  <script src="js/controlador-editor.js" ></script>
+  <script src="js/controlador-chat.js" ></script>
+<!--Scripts End-->
 </body>
-
-</html>

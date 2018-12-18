@@ -6,6 +6,8 @@ var mysql = require("mysql");
 var app = express();
 var session = require("express-session");
 
+var ssn;
+
 //use
 //session (not used yet)
 app.use(session({secret:"ASDFE$%#%",resave:true, saveUninitialized:true}));
@@ -36,6 +38,7 @@ app.get('/', function(req, res, next) {
 app.post('/', function(req, res, next) {
  // Handle the post for this route
 });
+
 
 
 
@@ -90,9 +93,12 @@ app.post('/login', function(request, response){
 
 
 app.use(express.static("public-usuario"));//Ejecutar middlewares.
+
+
+
 //load file root
 app.post('/load-file-system-root', function(request, response){
-    console.log(request.session.idusuario)
+    console.log("session " + request.session.idusuario)
     var conexion = mysql.createConnection(credenciales);
     var sql = `
     select txt_nombre_carpetas from carpetas
@@ -105,8 +111,8 @@ app.post('/load-file-system-root', function(request, response){
     conexion.query(sql,
     [],
         function(err, data, fields){
-
-                if (data[0].length>0){
+                console.log(data);
+                if (data.length>0){
 
                     res=data[0][0];
     				        response.send(res);

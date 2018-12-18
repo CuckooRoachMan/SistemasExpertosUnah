@@ -14,7 +14,12 @@
             dataType:"json", //json
             success: function(respuesta){ //200 OK
                 console.log(respuesta);
+                if(respuesta){
+                    window.location = "login.html";
+                  }
+
             }
+
             //error:function(error){
               //  console.error(error);
             //}
