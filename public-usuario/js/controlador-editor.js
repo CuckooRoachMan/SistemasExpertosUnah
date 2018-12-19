@@ -4,18 +4,23 @@ $(document).ready(function(){
 
 function cargarCodigo(){
 	$.ajax({
-            url:"/obtener-archivo",
+            url:"/obtener-codigo",
             method:"POST",
             dataType:"json",
             success:function(respuesta){
-            	$("#lb-nombre-archivo").html(respuesta.nombre_archivo);
+            	respuesta=respuesta[0];
+            	console.log(respuesta);
+            	$("#lb-filename").html(respuesta.txt_nombre_archivos);
             	var editor= ace.edit("editor");
-            	var filename= respuesta.nombre_archivo;
+            	var filename= respuesta.txt_nombre_archivos;
+            	console.log(filename);
+            	console.log(respuesta.txt_nombre_archivos);
+            	
             	var modelist = ace.require("ace/ext/modelist")
 				var mode = modelist.getModeForPath(filename).mode;
 				editor.session.setMode(mode) ;// mode now contains "ace/mode/javascript".
-            	editor.setTheme("ace/theme/cobalt");
-				editor.setValue(respuesta.contenido);
+            	editor.setTheme("ace/theme/pacific");
+				editor.setValue(respuesta.txt_contenido_archivos);
 
             }
         });
@@ -26,13 +31,13 @@ $("#btn-save-code").click(function(){
     var parametros = "contenido="+editor.getValue();
     
 	$.ajax({
-		url:"/guardar-archivo",
+		url:"/editar-archivo",
 		method:"POST",
 		data:parametros,
 		dataType:"json",
 		success:function(respuesta){
 			if (respuesta.affectedRows==1){
-				console.log('Se guardo');
+				console.log('Se edito el archivo');
 			}
 			console.log(respuesta);
 			

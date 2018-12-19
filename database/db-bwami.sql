@@ -46,8 +46,8 @@ id_carpetascompartidas_pk int primary key auto_increment,
 txt_nombre_carpetascompartidas varchar(50),
 date_creacion_carpetascompartidas timestamp default current_timestamp,
 date_update_carpetascompartidas timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-txt_nombreusuario_carpetascompartidas varchar(50),
-id_subcarpetas_fk int 
+txt_correousuario_carpetascompartidas varchar(50),
+id_usuarios_fk int 
 );
 
 CREATE TABLE archivos (
@@ -57,7 +57,7 @@ date_archivos_subcarpetas timestamp default current_timestamp,
 date_update_archivos timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 id_subcarpetas_fk int,
 
-txt_contenido_archivos longtext
+txt_contenido_archivos longtext 
 
 );
 
@@ -87,7 +87,6 @@ id_usuarios_fk
 )
 values 
 ('Proyectos',@id),
-('Compartidos',@id),
 ('Snippets',@id),
 ('Misc',@id)
 ;
@@ -198,7 +197,7 @@ values
 END;//
 
 delimiter //
-CREATE PROCEDURE sp_insertarArchivos( IN nombre varchar(250), IN id_subcarpeta int, IN contenido longtext )
+CREATE PROCEDURE sp_insertarArchivos( IN nombre varchar(250), IN id_subcarpeta int )
 BEGIN 
 #Podemos usar un select anterior como ejemplo
 
@@ -208,7 +207,7 @@ id_subcarpetas_fk,
 txt_contenido_archivos 
 )
 values 
-( nombre , id_subcarpeta, contenido);
+( nombre, id_subcarpeta, '//Archivo vacio');
 
  
 #No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
@@ -224,6 +223,22 @@ UPDATE archivos set txt_contenido_archivos = contenido where id_archivos_pk = id
 #No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
 END;//
 
+delimiter //
+CREATE PROCEDURE sp_insertarCompartidas(  IN id_usuario int, IN correo varchar(250))
+BEGIN 
+#Podemos usar un select anterior como ejemplo
+
+Insert into carpetascompartidas(
+
+id_usuarios_fk,
+txt_correousuario_carpetascompartidas 
+)
+values 
+(  id_usuario, correo);
+
+ 
+#No hay necesidad de regresar algo, eso se hace en los paramentos despues de OUT
+END;//
 
 DELIMITER ;
 
@@ -237,9 +252,11 @@ call sp_insertarsubCarpetas('nuevasubcarpeta', 1 );
 
 call sp_insertarsubCarpetas('nuevasubcarpeta', 2 );
 
-call sp_insertarArchivos('New File.html', 1, ' Hello my man ');
+call sp_insertarArchivos('New File.html', 1);
 
 call sp_updateArchivos(1,'Newman Type Longhorn');
+
+call sp_insertarCompartidas( 1, 'clark@kent.com' );
 #selects de prueba
 
 
@@ -250,6 +267,8 @@ select * from carpetas;
 select * from subcarpetas;
 
 select * from archivos;
+
+select * from carpetascompartidas;
 
 
 select txt_nombre_subcarpetas , id_subcarpetas_pk from subcarpetas
@@ -264,6 +283,27 @@ select txt_nombre_subcarpetas , id_subcarpetas_pk from subcarpetas
     where id_subcarpetas_pk = id_subcarpetas_fk
     and id_subcarpetas_pk = 3;
 
+
+
+select txt_nombre_carpetascompartidas, id_carpetascompartidas_pk, txt_correousuario_carpetascompartidas 
+from carpetascompartidas inner join Usuarios where id_usuarios_pk=id_usuarios_fk and  id_usuarios_pk=1   ;
+
+
+select * from Usuarios where id_usuarios_pk= 1;
+
+select id_usuarios_pk, txt_nombre_usuarios, txt_apellido_usuarios, txt_correo_usuarios 
+    from Usuarios where id_usuarios_pk= 1;
+
+
+##### cargar compartidas 
+
+select 
+txt_nombre_subcarpetas, id_carpetascompartidas_pk, txt_correousuario_carpetascompartidas
+from carpetascompartidas 
+inner join Usuarios ON Usuarios.id_usuarios_pk=carpetascompartidas.id_usuarios_fk
+inner join carpetas ON Usuarios.id_usuarios_pk=carpetas.id_usuarios_fk
+inner join subcarpetas ON id_carpetas_pk=id_carpetas_fk
+and  id_usuarios_pk= 1;
 
 
 

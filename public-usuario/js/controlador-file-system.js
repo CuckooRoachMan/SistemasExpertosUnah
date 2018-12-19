@@ -1,27 +1,71 @@
 $(document).ready(function(){
   loadFileSystem();
   $('#folder').val(0);
+  $('#btn-new-file').hide();
+  if($('#premium').val()==1){
+    $("#btn-upgrade").hide();
+  }
 });
-
 
 ///Si cambia de valor la carpeta
 $('#folder').change(function(){
+  console.log('cambio la carpeta');
   loadFileSystem();
+  if ($('#folder').val()==0 || $('#folder').val()==-1) {
+    $('#btn-new-file').hide();
+  }else{
+    $('#btn-new-file').show();
+  };
 });
+
 function loadFileSystem(){
   if($('#folder').val()==0){
+    $("#lb-folder").html("Root");
     loadHomeRoot();
   }else if($('#folder').val()==-1){
     loadSharedFolders();
+    $("#lb-folder").html("Compartidos");
   }else{
     loadSubfolders();
+    //$("#lb-folder").html("Subcarpeta");
   }
 }
 function loadSharedFolders(){
+  console.log('Se llamo a compartidos');
 //cargar aqui la tabla de compartidos
+  $.ajax({
+    url:"/cargar-compartidos",
+    method:"POST",
+    dataType:"json",
+    success:function(respuesta){
+      console.log(respuesta);
+      console.log(respuesta[0]);
+        $("#file-system").html("");
+            for(var i=0; i<respuesta.length;i++){
+                var cssClass="fas fa-folder";
+              $("#file-system").append(
+                      `<!--File-->
+                    <div  class="row file" id="${respuesta[i].id_carpetascompartidas_pk}" data-value="${respuesta[i].txt_nombre_subcarpetas}"
+                        onclick="select(this.id);" ondblclick="openFolder(this.id,'${respuesta[i].txt_nombre_subcarpetas}');">
+                    <div class="col-3 flex-centered">
+                      <center><i  class="${cssClass}"></i></center>
+                    </div>
+                    <div class="col-9 jc-flex-start-center"  title="${respuesta[i].txt_nombre_subcarpetas}">
+                      <div class="text-overflow">${respuesta[i].txt_nombre_subcarpetas}</div>
+                    </div>
+              </div>
+              <!--End of File-->
+              `
+              );
+
+            }
+      }
+    });
+
 }
 function loadSubfolders(){
-  //primero carga las carpetas
+  $("#file-system").html("");
+  //carga las carpetas
   loadFolders();
   //carga los archivos
   loadFiles();
@@ -36,12 +80,26 @@ $.ajax({
       console.log("cargar archivos");
       console.log(respuesta);
         $("#file-system").html("");
+        $("#file-system").append(
+                      `<!--Shared Folder-->
+                    <div  class="row file" id="-1" data-value=""
+                        onclick="select(this.id);" ondblclick="openFolder(this.id,'Compartidos');">
+                    <div class="col-3 flex-centered">
+                      <center><i  class="fas fa-folder"></i></center>
+                    </div>
+                    <div class="col-9 jc-flex-start-center"  title="Compartidos">
+                      <div class="text-overflow">Compartidos</div>
+                    </div>
+              </div>
+              <!--End of Folder-->
+              `
+              );
             for(var i=0; i<respuesta.length;i++){
                 var cssClass="fas fa-folder";
               $("#file-system").append(
                       `<!--File-->
                     <div  class="row file" id="${respuesta[i].id_carpetas_pk}" data-value="${respuesta[i].txt_nombre_carpetas}"
-                        onclick="select(this.id);" ondblclick="openFolder(this.id);";>
+                        onclick="select(this.id);" ondblclick="openFolder(this.id,'${respuesta[i].txt_nombre_carpetas}');">
                     <div class="col-3 flex-centered">
                       <center><i  class="${cssClass}"></i></center>
                     </div>
@@ -69,13 +127,13 @@ function loadFolders(){
     dataType:"json",
     success:function(respuesta){
       console.log(respuesta);
-        $("#file-system").html("");
+        
             for(var i=0; i<respuesta.length;i++){
                 var cssClass="fas fa-folder";
               $("#file-system").append(
                       `<!--File-->
-                    <div  class="row file" id="${respuesta[i].id_subcarpetas_pk}" data-value="${respuesta[i].txt_nombre_subcarpetas}"
-                        onclick="select(this.id);" ondblclick="openFolder(this.id);";>
+                    <div  class="row file subfolder" id="${respuesta[i].id_subcarpetas_pk}" data-value="${respuesta[i].txt_nombre_subcarpetas}"
+                        onclick="select(this.id);" ondblclick="openFolder(this.id,'${respuesta[i].txt_nombre_subcarpetas}');";>
                     <div class="col-3 flex-centered">
                       <center><i  class="${cssClass}"></i></center>
                     </div>
@@ -102,7 +160,7 @@ $.ajax({
     dataType:"json",
     success:function(respuesta){
       console.log(respuesta);
-        $("#file-system").html("");
+       //ob$("#file-system").html("");
             for(var i=0; i<respuesta.length;i++){
                 var cssClass="fas fa-file-code";
               $("#file-system").append(
@@ -140,12 +198,24 @@ function select(id){
   console.log(id);
 }
 
+
+$("#btn-upgrade").click(function(){
+  $('#modal-plan-premium').modal('toggle');
+});
+
+$("#btn-adquirir").click(function(){
+  $('#modal-plan-premium').modal('toggle');
+  $("#btn-upgrade").hide();
+  $('#premium').val(1);
+
+});
+
 function openFile(id){
   var file = $('#prev-selected').val();
         var parametros = "file="+file;
     $.ajax({
-      url:"/obtener-codigo",
-      method:"POST",
+      url:"/open-file",
+      method:"get",
       data: parametros,
       dataType:"json",
       success:function(response){
@@ -156,13 +226,16 @@ function openFile(id){
     });
 
 }
-function openFolder(id){
+function openFolder(id,nombre){
+  $("#lb-folder").html(nombre);
+  console.log(nombre);
   $('#prev-folder').val($('#folder').val());
     console.log('Id'+$('#'+id).val());
     $('#folder').val(id).trigger('change');
     console.log($('#folder').val());
 
 }
+
 $(document).ready(function(){
   loadFileSystem();
   $('#folder').val(0);//Se carga inicialmente la carpeta root
@@ -177,7 +250,100 @@ $("#btn-new-folder").click(function(){
 });
 $("#btn-crear-carpeta").click(function(){
   ///Crear nueva carpeta
+
+  if ( validarCampoVacio("txt-new-folder")){
+      if ($('#folder').val() == 0) {
+        var parametros = "nombre="+$("#txt-new-folder").val();
+    
+        //se crean carpetas porque se encuentra en Root
+          $.ajax({
+                url:"/crear-carpeta",
+                method:"POST",
+                data: parametros,
+                dataType:"json",
+                success:function(response){
+                  console.log(response);
+                  if (response.affectedRows==1){
+                          loadFileSystem();//Se vuelve a cargar el sistema
+
+                  }
+                }
+          });
+
+      }else{
+        //se crean subcarpetas
+        var parametros = "nombre="+$("#txt-new-folder").val() + "&"+
+                        "id="+$('#folder').val();
+        $.ajax({
+          ///crea subcarpeta
+                url:"/crear-subcarpeta",
+                method:"POST",
+                data: parametros,
+                dataType:"json",
+                success:function(response){
+                  console.log(response);
+                  if (response.affectedRows==1){
+                         
+                          loadFileSystem();//Se vuelve a cargar el sistema
+
+                  }
+                }
+          });
+    
+      }
+      
+    
+  }
+  $('#modal-nueva-carpeta').modal('toggle');
 });
+
+
+
+
 $("#btn-crear-archivo").click(function(){
-  ///Crear nuevo archivo
+  if ( validarCampoVacio("txt-new-file")){
+      ///Crear nuevo archivo
+        var parametros = "nombre="+$("#txt-new-file").val() + "&"+
+                        "id="+$('#folder').val();
+        $.ajax({
+          ///crea subcarpeta
+                url:"/crear-archivo",
+                method:"POST",
+                data: parametros,
+                dataType:"json",
+                success:function(response){
+                  console.log(response);
+                  if (response.affectedRows==1){
+                         
+                          loadFileSystem();//Se vuelve a cargar el sistema
+
+                  }
+                }
+          });
+          $('#modal-nuevo-archivo').modal('toggle');
+  }
+  
 });
+//Cargar Compartidos
+function openShared(){
+    $('#prev-folder').val($('#folder').val());
+    console.log('Id'+$('#'+id).val());
+    $('#folder').val(id).trigger('change');
+    console.log($('#folder').val());
+
+}
+
+////Validar Campos Vacios
+function validarCampoVacio(id){
+    if (document.getElementById(id).value==""){
+        document.getElementById(id).classList.remove("is-valid");
+        document.getElementById(id).classList.add("is-invalid");
+        return false;
+    } else{
+        document.getElementById(id).classList.remove("is-invalid");
+        document.getElementById(id).classList.add("is-valid");
+        return true;
+    }
+}
+
+

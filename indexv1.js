@@ -20,7 +20,7 @@ app.use(express.static("public"));//Ejecutar middlewares.
 //credenciales
 var credenciales = {
     user: "root",
-    password:"akatsuki9",
+    password:"clave",
     host:"localhost",
     port:"3306",
     database:"bwami",
@@ -39,6 +39,7 @@ app.get('/', function(req, res, next) {
 app.post('/', function(req, res, next) {
  // Handle the post for this route
 });
+
 
 
 
@@ -94,9 +95,17 @@ app.post('/login', function(request, response){
     );
     });
 
+var publicUsuario = express.static("public-usuario");//Hace publica la carpeta de usuarios
 
-app.use(express.static("public-usuario"));//Ejecutar middlewares.
-
+//Verificar si existe una variable de sesion
+app.use(
+    function(request,response,next){
+        if (request.session.id_usuarios_pk){
+                publicUsuario(request,response,next);
+        }else
+            return next();
+    }
+);
 
 
 //load file root
@@ -190,11 +199,11 @@ app.post('/obtener-archivos', function(request, response){
 /// crear carpeta
 app.post('/crear-carpeta', function(request, response){
     var conexion = mysql.createConnection(credenciales);
-    var sql = "sp_insertarCarpetas(?, ?)";
+    var sql = "call sp_insertarCarpetas(?, ?)";
       conexion.query(
         sql,
         [request.body.nombre,
-        request.body.id],
+        request.session.id_usuarios_pk],
         function(err, result){
           if (err) throw err;
           response.send(result);
@@ -206,7 +215,7 @@ app.post('/crear-carpeta', function(request, response){
 
 app.post('/crear-subcarpeta', function(request, response){
     var conexion = mysql.createConnection(credenciales);
-    var sql = "sp_insertarsubCarpetas(?, ?)";
+    var sql = "call sp_insertarsubCarpetas(?, ?)";
       conexion.query(
         sql,
         [request.body.nombre,
@@ -222,12 +231,11 @@ app.post('/crear-subcarpeta', function(request, response){
 
 app.post('/crear-archivo', function(request, response){
     var conexion = mysql.createConnection(credenciales);
-    var sql = "sp_insertarArchivos(?, ?, ?)";
+    var sql = "call sp_insertarArchivos(?, ?)";
       conexion.query(
         sql,
         [request.body.nombre,
-        request.body.id,
-        request.body.contenido
+        request.body.id
         ],
 
         function(err, result){
@@ -241,11 +249,11 @@ app.post('/crear-archivo', function(request, response){
 
 app.post('/editar-archivo', function(request, response){
     var conexion = mysql.createConnection(credenciales);
-    var sql = "sp_updateArchivos(?, ?)";
+    var sql = "call sp_updateArchivos(?, ?);";
       conexion.query(
         sql,
         [
-        request.body.id,
+        request.session.idFile,
         request.body.contenido
         ],
 
@@ -256,20 +264,117 @@ app.post('/editar-archivo', function(request, response){
         );
 });
 
+///Guarda Codigo Archivo Seleccionado
+app.get("/open-file",function(request, response){
+    request.session.idFile= request.query.file;
+    response.send({mensaje:'Se almaceno codigo del archivo seleccionado'});
+
+});
+///Obtener Codigo de Archivo
+app.post('/obtener-codigo', function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql = `
+
+    SELECT txt_nombre_archivos,txt_contenido_archivos 
+    FROM bwami.archivos
+    where id_archivos_pk = ?;
+
+    `;
+    conexion.query(sql,
+    [request.session.idFile],
+        function(err, data, fields){
+                console.log(data);
+                if (data.length>0){
+                    //res=data;
+                    console.log("Si pasan los datos");
+                            response.send(data);
+                }else{
+                    response.send({estado:1, mensaje: "Algo paso"});
+                }
+        }
+
+    );
+});
+
 /// borrar archivo
 
+///Cargar Perfil
+app.post('/cargar-perfil', function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql =
+    `
+    select id_usuarios_pk, txt_nombre_usuarios, txt_apellido_usuarios, txt_correo_usuarios 
+    from Usuarios where id_usuarios_pk= ${request.session.id_usuarios_pk};
+    ` ;
+      conexion.query(
+        sql,
+        [
 
-/// editar perfil
+        ],
 
+        function(err, result){
+          if (err) throw err;
+          response.send(result);
+        }
+        );
+});
 
 /// agregar a compartidos  // compartir
 
-
 /// cambiar plan
+//logout
+app.get("/logout",function(request, response){
+    request.session.destroy();
+    response.send({estado:0, mensaje: "Cerrado"});
+    console.log('Cerrando Sesion');
+
+});
 
 
+///Compartir
+app.post('/compartir', function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql = "call sp_insertarCompartidas(?,?);";
+      conexion.query(
+        sql,
+        [
+        request.session.id_usuarios_pk,
+        request.body.correo
+        ],
 
+        function(err, result){
+          if (err) throw err;
+          response.send(result);
+        }
+        );
+});
+///Cargar Compartidos
+app.post('/cargar-compartidos', function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql =
+    `
+    select
+txt_nombre_subcarpetas, id_carpetascompartidas_pk, txt_correousuario_carpetascompartidas
+from carpetascompartidas
+inner join Usuarios ON Usuarios.id_usuarios_pk=carpetascompartidas.id_usuarios_fk
+inner join carpetas ON Usuarios.id_usuarios_pk=carpetas.id_usuarios_fk
+inner join subcarpetas ON id_carpetas_pk=id_carpetas_fk
+where  id_usuarios_pk= ${request.session.id_usuarios_pk}
+group by txt_nombre_subcarpetas;
 
+    ` ;
+      conexion.query(
+        sql,
+        [
+
+        ],
+
+        function(err, result){
+          if (err) throw err;
+          response.send(result);
+        }
+        );
+});
 
 
 

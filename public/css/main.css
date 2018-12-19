@@ -334,7 +334,7 @@ html,body {
 .file{
   background-color: #FFF;
   border-radius: .25em;
-  max-width: 14.3em;
+  max-width: 14em;
   margin: .4em;
   font-size: 1.2em;
   height: 3em;
@@ -390,4 +390,50 @@ html,body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+/*Context Menu*/
+.custom-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+    list-style-type: none;
+    transition: all .3s ease;
+    user-select: none;
+    display: block;
+}
+.custom-menu{
+  background: #dbe5e6;
+  position: absolute;
+  z-index: 1;
+}
+
+.custom-menu li:hover {
+    background-color: #67d565;
+}
+/*End of Context Menu*/
+/*Editor*/
+.ace_editor {
+    height: 35em;
+}
+#lb-filename{
+  padding: .5em
+}
+/*Final Editor*/
+#btn-upgrade{
+  position: absolute;
+  bottom: 1em;
+}
+#lb-folder{
+    font-size: 1em;
+    padding: 0.7em;
+    margin-left: 2em;
+}
+#contenedor-mensajes{
+  height:75%;
+  border-bottom: .6em;
+    /* border-bottom: solid; */
+    border-color: #51ab4e;
+    border-bottom-style: solid;
+}
+#chat{
+  padding: 1em;
 }

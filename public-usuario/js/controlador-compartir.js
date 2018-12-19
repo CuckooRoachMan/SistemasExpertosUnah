@@ -4,10 +4,11 @@ $(document).bind("contextmenu", function (event) {
 
 
     $(event.target).trigger('click');
-    // Elimina el real
-    event.preventDefault();
+    
     // Mostar contextmenu
-    if(event.target.matches('.file *')){
+    if(event.target.matches('.subfolder *')){
+      // Elimina el real
+        event.preventDefault();
       console.log('Muestra Context menu');
        $(".custom-menu").finish().show(100).
       
@@ -65,10 +66,10 @@ $( "#email-compartir" ).keyup(function(){
 $("#btn-compartir").click(function(){
   $('#modal-compartir').modal('toggle');
   if ( validarCampoVacio("email-compartir")){
-        var parametros = "email="+$("#email-compartir").val() + "&"+
-                        "file="+$('#prev-selected').val();
+        var parametros = "correo="+$("#email-compartir").val() + "&"+
+                        "id_carpeta="+$('#prev-selected').val();
     $.ajax({
-      url:"/share",
+      url:"/compartir",
       method:"POST",
       data: parametros,
       dataType:"json",

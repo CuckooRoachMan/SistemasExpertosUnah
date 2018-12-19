@@ -33,7 +33,7 @@
 <body>
 
   <nav class="navbar navbar-light navbar-expand-lg static-top bg-tr-white">
-      <a class="navbar-brand font-logo f-dark-olive" href="landing.html"><center>Bwami</center></a>
+      <a class="navbar-brand font-logo f-dark-olive" href="file-system.html"><center>Bwami</center></a>
   
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
@@ -41,7 +41,7 @@
         <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <label id="nombre-carpeta-padre"class="nav-link" ></label>
+        <label id="lb-folder"class="bg-dark-olive f-white" ></label>
       </li>
 
     </ul>
@@ -106,30 +106,21 @@
         <div class="row">
         <div class="form-group col-sm-6 col-lg-6 col-12 col-md-6">
           <label for=""> Nombre </label><br>
-          <input class="input-green"  type="text" name="Nombre" value="" id="nombre-perfil">
+          <input disabled class="input-green"  type="text" name="Nombre" value="" id="nombre-perfil">
         </div>
         <div class="form-group col-sm-6 col-lg-6 col-12 col-md-6">
             <label for="">  Apellido(s) </label><br>
-          <input class="input-green" type="text" name="Apellidos" value="" id="apellido-perfil">
+          <input disabled class="input-green" type="text" name="Apellidos" value="" id="apellido-perfil">
         </div>
         <div class="form-group col-12">
           <label>Correo</label><br>
-            <input class="input-green" type="email" name="" value="" id="email-perfil"><br>
-        </div>
-        <div class="form-group col-12">
-          <label>Contraseña</label><br>
-            <input class="input-green" type="password" name="" value="" id="password-perfil">
-        </div>
-        <div class="form-group col-12">
-          <label for="">Confirmar Contraseña</label><br>
-            <input class="input-green" type="password" name="" value="" id="passwordconfirm-perfil">
+            <input disabled class="input-green" type="email" name="" value="" id="email-perfil"><br>
         </div>
 
     </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button id="btn-guardar-perfil"type="button" class="btn btn-outline-success">Guardar cambios</button>
       </div>
     </div>
   </div>
@@ -140,7 +131,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="">Perfil</h5>
+        <h5 class="modal-title" id="">Compartir</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -196,7 +187,7 @@
       <div class="modal-body bg-dark-olive">
         <div class="form-group col-12">
           <label>Nombre</label><br>
-            <input class="input-green" type="txt" name="" value="" id="txt-new-folder"><br>
+            <input class="input-green" type="txt" name="" value="" id="txt-new-file"><br>
         </div>
       </div>
       <div class="modal-footer">
@@ -207,12 +198,50 @@
   </div>
 </div>
 <!--Final de Modal Nuevo Archivo>
-
+<!-- Modal Adquirir Plan Premium -->
+<div class="modal fade" id="modal-plan-premium" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Adquirir Plan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark-olive">
+        <div class="form-group col-12">
+          <label>Tarjetahabiente</label><br>
+            <input class="input-green" type="txt" name="" value="" id="txt-tarjeta"><br>
+        </div>
+      <div class="form-group col-12">
+          <label>Numero de Tarjeta</label><br>
+            <input class="input-green" type="txt" name="" value="" id="no-tarjeta"><br>
+        </div>
+        <div class="row">
+          <div class="form-group col-6">
+          <label>Codigo de Seguridad</label><br>
+            <input class="input-green" type="txt" name="" value="" id="cv"><br>
+        </div>
+        <div class="form-group col-6">
+          <label>Fecha de Vencimiento</label><br>
+            <input class="input-green" type="txt" name="" value="" id="fecha-vencimiento"><br>
+        </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button id="btn-adquirir"type="button" class="btn btn-outline-success">Adquirir</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Final de Modal Adquirir Plan>
 
   <!--Context Menu-->
       <ul class='custom-menu'>
-        <li data-action="rename">Cambiar Nombre</li>
         <li data-action="share">Compartir</li>
+        <li data-action="share">Descargar</li>
     </ul>
   <!--End of Context Menu-->
 <!--Hidden Types-->
@@ -220,7 +249,7 @@
 <input type="hidden" id="selected" value="">
 <input type="hidden" id="prev-selected" value="">
 <input type="hidden" id="prev-folder" value="">
-
+<input type="hidden" id="premium" value="">
 <!--Hidden Types End-->
 <!--Scripts-->
   <script src="js/jquery.js"></script>
