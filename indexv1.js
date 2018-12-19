@@ -20,7 +20,7 @@ app.use(express.static("public"));//Ejecutar middlewares.
 //credenciales
 var credenciales = {
     user: "root",
-    password:"clave",
+    password:"akatsuki9",
     host:"localhost",
     port:"3306",
     database:"bwami",
@@ -275,7 +275,7 @@ app.post('/obtener-codigo', function(request, response){
     var conexion = mysql.createConnection(credenciales);
     var sql = `
 
-    SELECT txt_nombre_archivos,txt_contenido_archivos 
+    SELECT txt_nombre_archivos,txt_contenido_archivos
     FROM bwami.archivos
     where id_archivos_pk = ?;
 
@@ -303,7 +303,7 @@ app.post('/cargar-perfil', function(request, response){
     var conexion = mysql.createConnection(credenciales);
     var sql =
     `
-    select id_usuarios_pk, txt_nombre_usuarios, txt_apellido_usuarios, txt_correo_usuarios 
+    select id_usuarios_pk, txt_nombre_usuarios, txt_apellido_usuarios, txt_correo_usuarios
     from Usuarios where id_usuarios_pk= ${request.session.id_usuarios_pk};
     ` ;
       conexion.query(
